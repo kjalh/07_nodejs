@@ -32,6 +32,14 @@
     도구
         npm install -g modemon (글로벌이라 권장하지 않음 -> node.js안에 설치됨)
         npm install --save-dev nodemon (해당 프로젝트에서만 사용,  package.json 안에 설치됨)
+
+        npm install --save-dev nodemon 을 설치하면 .gitignore에 node_modules/올리기
+        package.json이 reauirement.txt 같은거
+        npm install -> 하면 package.json에 있는 버전들이 한번에 깔림
+    
+
+
+    
             
 */
 
