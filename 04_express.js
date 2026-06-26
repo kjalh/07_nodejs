@@ -18,7 +18,12 @@
     - 대표적으로 HTML, CSS, JavaScript, 이미지, 폰트 파일 등이 있으며, 사용자의 요청이 들어오면 서버는 내용을 가공하지 않고 저장된 그대로 응답
 
     EJS
-    EJS(Embedded JavaScript)는 HTML 안에 JavaScript 코드를 삽입해 서버 데이터를 동적으로 렌더링할 수 있게 해주는 node.js용 템플릿 엔진
+    - EJS(Embedded JavaScript)는 HTML 안에 JavaScript 코드를 삽입해 서버 데이터를 동적으로 렌더링할 수 있게 해주는 node.js용 템플릿 엔진
+    - <%= %>, <% %> 안에서 로직을 작성하여 사용
+
+    템플릿 엔지
+    - HTML과 데이터를 결합해 동적인 화면을 만들어주는 도구
+    - 서버에서 전달한 값을 HTML 안에 삽입해 최종 페이지를 생성하며, 반복문/조건문 같은 로직도 템플릿 내부에서 처리할 수 있음
 */
 
 const express = require("express") // 파이썬으로 따지면 import임 그걸 express에 저장한거고
