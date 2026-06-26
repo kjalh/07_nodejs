@@ -16,6 +16,9 @@
     정적파일
     - 서버에서 별도의 처리 없이 그대로 클라이언트에게 전달되는 파일
     - 대표적으로 HTML, CSS, JavaScript, 이미지, 폰트 파일 등이 있으며, 사용자의 요청이 들어오면 서버는 내용을 가공하지 않고 저장된 그대로 응답
+
+    EJS
+    EJS(Embedded JavaScript)는 HTML 안에 JavaScript 코드를 삽입해 서버 데이터를 동적으로 렌더링할 수 있게 해주는 node.js용 템플릿 엔진
 */
 
 const express = require("express") // 파이썬으로 따지면 import임 그걸 express에 저장한거고
@@ -23,7 +26,8 @@ const app = express()
 const port = 3000
 
 // use()는 미들웨어 등록
-app.use(express.static('public'))
+// app.use(express.static('public'))    // root에서 접근
+app.use("/static", express.static('public'))  // http://127.0.0.1:3000/static/spring.png
 
 app.get("/", (req, res) =>{
     res.send("Hello Express!")

@@ -68,7 +68,7 @@ const server = http.createServer((req,res) => {
     console.log(myUrl.searchParams.get("name"))
     console.log(myUrl.searchParams.get("age"))
 
-    if(req.url === "/"){ // 127.0.0.1:3000/
+    if(req.url === "/"){ // 루트에서 접근       // 127.0.0.1:3000/
         res.writeHead(200, {"Content-Type": "text/html"})
         res.end("<h2>Hello Node.js</h2>")
     }
