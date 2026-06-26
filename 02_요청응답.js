@@ -39,7 +39,15 @@
     
 
         JSON
+        - 자바 스크립트 객체 표기법을 기반으로 한 데이터 교환 형식
+        - 일반적으로 서버와 클라이언트 간에 데이터를 조고 받을 때 사용
+        - 구조는 키-값 쌍으로 이루어진 객체 형태나 배열 형태를 사용
 
+            const user = { name: "김사과", age: 20 }
+            const jsonStr = JSON.stringify(user)    // 객체를 문자열로 변환
+
+            const jsonStr = "{ name: "김사과", age: 20 }"
+            const userObj = JSON.parse(jsonStr)     // 문자열을 객체로 변환
     
             
 */
@@ -50,25 +58,37 @@ const http = require("http")
 const url = require("url") // 주소에 ? 뒤에 가져옴
 
 const server = http.createServer((req,res) => {
+    // url = req.url
+
     // const pasrseURL = url.parse(req.url, true) // true는 query string을 객체로 자동 변환
     
-    const myUrl = new URL(req.url, `https://${req.headers.host}`)
+    const myUrl = new URL(req.url, `http://${req.headers.host}`)
     console.log(myUrl.pathname)
     console.log(myUrl.searchParams.get("userid"))
     console.log(myUrl.searchParams.get("name"))
     console.log(myUrl.searchParams.get("age"))
 
-    if(url === "/"){ // 127.0.0.1:3000/
+    if(req.url === "/"){ // 127.0.0.1:3000/
         res.writeHead(200, {"Content-Type": "text/html"})
         res.end("<h2>Hello Node.js</h2>")
     }
-    else if(url === "/about") {// 127.0.0.1:3000/about
+    else if(req.url === "/about") {// 127.0.0.1:3000/about
         res.writeHead(200, {"Content-Type": "text/html"})
         res.end("<h2>about page</h2>")
     }
+    else if(req.url === "/api/user"){ // 127.0.0.1:3000/api/user
+        const user = {
+            userid: "apple",
+            name: "김사과",
+            age: 20,
+            job: "AI 개발자"
+        }
+        res.writeHead(200, {"Content-Type": "application/json"})
+        res.end(JSON.stringify(user))
+    }
     else{ // 127.0.0.1:3000/아무거나
         res.writeHead(404, {"Content-Type": "text/html"})
-        res.end("<h2>error 😀</h2>")
+        res.end("<h2>error 🤢</h2>")
     }
 })
 server.listen(3000, () => {
