@@ -21,23 +21,141 @@
     - EJS(Embedded JavaScript)는 HTML 안에 JavaScript 코드를 삽입해 서버 데이터를 동적으로 렌더링할 수 있게 해주는 node.js용 템플릿 엔진
     - <%= %>, <% %> 안에서 로직을 작성하여 사용
 
-    템플릿 엔지
+        *도구 설치 npm i ejs*
+
+        1. username 값을 출력
+        <h1><%=ussername%></h1>
+
+        2. 조건문
+        <%
+            if(isLogin){                    //여기서부터
+
+        %>
+            <p>로그인 상태입니다.</p>
+        <%
+            }else{
+        %>
+            <p>로그인이 필요합니다.</p>
+        <%
+                }                           // 여기까지 하나의 코드
+        %>
+
+        3. 반복문
+        <%
+            const users = ['김사과', '반하나', '오렌지']
+        %>
+            <ul>
+        <%
+            for(len i = 0; i<users.length; i++){
+        %>
+                <li><%=users[i]%></li>
+        <%
+            }
+        %>
+            </ul>
+
+        <ul>
+
+        <% user.forEach(user => { %>
+            <li><%=user%></li>
+        <%})%>
+        </ul>
+
+    템플릿 엔진
     - HTML과 데이터를 결합해 동적인 화면을 만들어주는 도구
     - 서버에서 전달한 값을 HTML 안에 삽입해 최종 페이지를 생성하며, 반복문/조건문 같은 로직도 템플릿 내부에서 처리할 수 있음
 */
 
-const express = require("express") // 파이썬으로 따지면 import임 그걸 express에 저장한거고
+const express = require("express")
+const path = require("path")
 const app = express()
 const port = 3000
 
-// use()는 미들웨어 등록
-// app.use(express.static('public'))    // root에서 접근
-app.use("/static", express.static('public'))  // http://127.0.0.1:3000/static/spring.png
+// 미들웨어 등록
+// app.use(express.static('public')) // root에서 접근
+app.use("/static", express.static('public')) // http://127.0.0.1:3000/static/spring.png
+app.use(express.urlencoded({extended: true}))
 
-app.get("/", (req, res) =>{
+// EJS 설정
+app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "view"))
+
+
+
+app.get("/", (req, res) => {
     res.send("Hello Express!")
 })
 
-app.listen(port, () => {
-    console.log("서버 실행중...")  // 172.0.0.1:3000
+app.get("/hello", (req, res) => {
+    res.render("hello", { name: "김사과"} )
 })
+
+app.get("/submit", (req, res) => {
+    res.render("submit")
+})
+
+app.post("/submit", (req, res) => {
+    const { name, age} = req.body
+    console.log("name: ", name)
+    console.log("age: ", age)
+    res.send("post로 호출!")
+})
+
+app.listen(port, () => {
+    console.log("서버 실행중...")
+})
+
+
+
+
+
+// const express = require("express") // 파이썬으로 따지면 import임 그걸 express에 저장한거고
+// const path = require("path")
+// const app = express()
+// const port = 3000
+
+// // use()는 미들웨어 등록
+// // app.use(express.static('public'))    // root에서 접근
+// app.use("/static", express.static('public'))  // http://127.0.0.1:3000/static/spring.png
+// app.use(express.urlencoded({extended: true}))
+
+
+// // EJS 설정
+// app.set("view engine", "ejs")
+// app.set("views", path.join(__dirname, "view"))
+
+
+
+
+// app.get("/", (req, res) => {
+//     res.send("Hello Express!")
+// })
+
+
+// app.get("/hello", (req, res) => { // 여기 hello는 주소      // http://127.0.0.1:3000/hello
+//     res.render("hello", { name: "김사과"} )     // 여기 hello는 파일명
+// })
+
+// // app.get("/hello", (req, res) => { // 바로 위 get주석 해제하면 이거 주석
+// //     res.render("post")     
+// // })
+
+
+
+// app.get("/submit", (req, res) => { // get방식으로 보냈기 때문에 나옴
+//     res.send("submit")
+// })
+
+// app.post("/submit", (req, res) => { // http://127.0.0.1:3000/submit <- 안나옴 get방식으로 보냈기 때문에
+    // const { name, age} = req.body
+    // console.log("name: ", name)
+    // console.log("age: ", age)
+//     res.send("post로 호출!")
+// })
+
+
+// app.listen(port, () => {
+//     console.log("서버 실행중...")  // 172.0.0.1:3000
+// })
+
+
