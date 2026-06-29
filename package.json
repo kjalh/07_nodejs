@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon 06_json요청.js"
+    "dev": "nodemon 08_라우트활용.mjs"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
