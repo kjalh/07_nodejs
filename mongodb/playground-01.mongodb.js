@@ -110,3 +110,14 @@ use("AIdb")
 db.students.updateMany(
    {}, {$inc: { score: 3 } }
 )
+
+// 문서 삭제
+use("AIdb")
+db.students.deleteOne({name: '오렌지'})
+
+// 여러 문서 삭제
+use("AIdb")
+db.students.deleteMany({score: {$lt: 100}})
+
+use("AIdb")
+db.students.find({})
