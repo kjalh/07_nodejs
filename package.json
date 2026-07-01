@@ -16,13 +16,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon 08_라우트활용.mjs"
+    "dev": "nodemon 09_메모.js"
   },
   "devDependencies": {
     "nodemon": "^3.1.14"
   },
   "dependencies": {
     "ejs": "^6.0.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mogodb": "^0.0.1-security",
+    "mongodb": "^7.4.0"
   }
 }
