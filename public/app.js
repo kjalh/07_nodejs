@@ -50,11 +50,89 @@ function renderMemos(memos){
         li.innerHTML = `
             <span>${memo.text}</span>
             <div class="memo-buttons">
-                <button>수정</button> <button>삭제</button>
+                <button onclick="editMemo('${memo._id}')">수정</button> <button onclick="deleteMemo('${memo._id}')">삭제</button>
             </div>
         `
         memoList.appendChild(li)
     })
 }
+
+// 메모 삭제
+async function deleteMemo(id){
+    const check = confirm("정말 삭제하시겠습니까?")
+    // console.log(check)
+    // console.log(id)
+
+    if(!check) return
+    
+    try{
+        const reponse = await fetch(`/memos/${id}`, {
+            method:"DELETE"
+        })
+                const data = await reponse.json()
+        renderMemos(data.memos)
+    }catch(error){
+        console.log("메모 삭제 실패: ", error)
+
+    }
+}
+
+
+// 메모 수정
+// 내가 하다 망함
+// async function editMemo(id) {
+//     const newText = prompt("수정할 내용을 입력하세요.")
+//     console.log(newText)
+//     // const check = confirm("")
+
+//     if(!newText || nexText.trim() === "") return
+
+    
+
+//     try{
+//         const response = await fetch(`/memos/${id}`,{
+//             method:"PUT",
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             },     
+//             body: JSON.stringify({newText})
+//         })
+        
+        
+        
+//     }
+//     catch(error){
+//         console.log("메모 수정 실패: ", error)
+//     }
+// }
+
+async function editMemo(id) {
+    const newText = prompt("수정할 내용을 입력하세요.")
+    console.log(newText)
+    // const check = confirm("")
+
+    if(!newText || newText.trim() === "") return
+
+    
+
+    try{
+        await fetch(`/memos/${id}`,{
+            method:"PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },     
+            body: JSON.stringify({text: newText})
+        })
+        
+        
+        loadMemos() // reload()해도 상관 없음
+    }
+    catch(error){
+        console.log("메모 수정 실패: ", error)
+    }
+}
+
+
+
 
 loadMemos()
