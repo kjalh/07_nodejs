@@ -18,6 +18,11 @@ io.on("connection", (socket) => {
     console.log("사용자가 연결되었음")
 
     socket.on("join", ({ nickname, channel }) => {
+        Object.keys(users).forEach((id) => {
+            if (users[id].nickname === nickname){
+                delete users[id];
+            }
+        });
         socket.nickname = nickname
         socket.channel = channel
         users[socket.id] = {nickname, channel}
@@ -26,6 +31,7 @@ io.on("connection", (socket) => {
         const msg = { user: "system", text: `${nickname}님이 입장했습니다.`} // 사용자 쪽에 들어왔다고 알림
         console.log("nickname: ", nickname, "channel: ", channel)
         io.to(channel).emit("message", msg)  // io.emit("message", msg) 모든 사용자에게 전달
+        updateUserLsit()
     })
 
     socket.on("chat", ({ text, to }) => {
@@ -49,6 +55,12 @@ io.on("connection", (socket) => {
     })
     
     socket.on("changeChannel", ({ newChannel }) => {
+        const user = user[socket.id]
+        if(!user){
+            console.log("비정상 접속 사용자!")
+            return
+        }
+
         const oldChannel = socket.channel
         const nickname = socket.nickname
         socket.leave(oldChannel)
@@ -61,11 +73,25 @@ io.on("connection", (socket) => {
         socket.join(newChannel)
         const joinMsg = { user: "system", text: `${nickname}님이 입장했습니다`}
         io.to(newChannel).emit("message", joinMsg)
+        updateUserLsit()
     })
 
     socket.on("disconnect", () => {
-        console.log("사용자가 퇴장했습니다.")
+        const user = user[socket.id]
+        if(user){
+            const msg = { user: "system", text: `${user.nickname}님이 퇴장했습니다.`}
+            io.to(user.channel).emit("message",msg)
+            delete users[socket.id]
+        }
+
+        updateUserLsit()
     })
+
+    function updateUserList(){
+        const userList = Object.values(users)
+        // console.log(userList)
+        io.emit("userList", userList)
+    }
 })
 
 server.listen(3000, () => {
