@@ -16,7 +16,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon 12_SocketIO.mjs"
+    "dev": "node 12_SocketIO.mjs"
   },
   "dependencies": {
     "bcrpyt": "^2.0.0",

@@ -31,7 +31,7 @@ io.on("connection", (socket) => {
         const msg = { user: "system", text: `${nickname}님이 입장했습니다.`} // 사용자 쪽에 들어왔다고 알림
         console.log("nickname: ", nickname, "channel: ", channel)
         io.to(channel).emit("message", msg)  // io.emit("message", msg) 모든 사용자에게 전달
-        updateUserLsit()
+        updateUserList()
     })
 
     socket.on("chat", ({ text, to }) => {
