@@ -30,7 +30,7 @@
     js 파일 만들 때마다 뭐가 있어서 불편함. 하지만 저장만 하면 자동으로 재시작이라 편함
 
     도구
-        npm install -g modemon (글로벌이라 권장하지 않음 -> node.js안에 설치됨)
+        npm install -g nodemon (글로벌이라 권장하지 않음 -> node.js안에 설치됨)
         npm install --save-dev nodemon (해당 프로젝트에서만 사용,  package.json 안에 설치됨)
 
         npm install --save-dev nodemon 을 설치하면 .gitignore에 node_modules/올리기
