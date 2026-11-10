@@ -240,7 +240,7 @@ app.delete("/memos/:id", async(req, res) => {
 })
 
 
-// 강사
+// 강사님
 // app.delete("/memos/:id", async(req, res) => {
 //     try{
 //         const { id } = req.params
